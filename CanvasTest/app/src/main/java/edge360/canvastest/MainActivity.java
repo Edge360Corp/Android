@@ -8,12 +8,13 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.*;
 import android.view.Menu;
 import android.widget.LinearLayout;
+import android.os.Handler;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Random;
+import java.lang.Runnable;
+
 
 public class MainActivity extends Activity {
     Bitmap bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
@@ -22,13 +23,16 @@ public class MainActivity extends Activity {
     Timer timer;
     TimerTask timerTask;
 
+    private Handler handler = new Handler();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         drawEverything();
-        startTimer();
+
+        handler.postDelayed(runnable, 5000);
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.rect);
         ll.setBackgroundDrawable(new BitmapDrawable(bg));
@@ -38,6 +42,17 @@ public class MainActivity extends Activity {
     public void onResume() {
         clearCanvas();
     }*/
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+      /* do what you need to do */
+            clearCanvas();
+            drawEverything();
+      /* and here comes the "trick" */
+            handler.postDelayed(this, 5000);
+        }
+    };
 
     public void drawEverything() {
         Paint paint1 = new Paint();
@@ -65,7 +80,7 @@ public class MainActivity extends Activity {
         canvas.drawColor(0, PorterDuff.Mode.CLEAR);
     }
 
-    public void startTimer() {
+    /*public void startTimer() {
         timer = new Timer();
 
         initializeTimerTask();
@@ -80,7 +95,7 @@ public class MainActivity extends Activity {
                 drawEverything();
             }
         };
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
