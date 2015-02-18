@@ -20,8 +20,8 @@ public class MainActivity extends Activity {
     Bitmap bg = Bitmap.createBitmap(480, 800, Bitmap.Config.ARGB_8888);
     Canvas canvas = new Canvas(bg);
 
-    Timer timer;
-    TimerTask timerTask;
+    /*Timer timer;
+    TimerTask timerTask;*/
 
     private Handler handler = new Handler();
 
